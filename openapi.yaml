@@ -1,0 +1,391 @@
+openapi: 3.0.0
+info:
+  title: 'Authors and Books'
+  version: '1.0'
+servers:
+  -
+    url: 'http://127.0.0.1'
+paths:
+  /api/authors:
+    get:
+      tags:
+        - Author
+      summary: 'Get authors'
+      description: 'Get authors'
+      operationId: 0c71439e213e1b284fc37995d74bca2b
+      responses:
+        '200':
+          description: 'Get books'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AuthorCollection'
+        '404':
+          description: 'Not found'
+        '500':
+          description: 'Server error'
+    post:
+      tags:
+        - Author
+      summary: 'Store author'
+      description: 'Store author'
+      operationId: 291d8539d3b5490d46fe9f2ebd84c64c
+      requestBody:
+        $ref: '#/components/requestBodies/AuthorRequest'
+      responses:
+        '201':
+          description: 'Store author success'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties: { first_name: { type: text, example: 'Имя автора' }, last_name: { type: text, example: 'Фамилия автора' }, surname: { type: text, example: 'Отчество автора' } }
+                  type: object
+        '422':
+          description: 'Invalid data'
+        '404':
+          description: 'Not found'
+        '500':
+          description: 'Server error'
+  '/api/authors/{author_id}':
+    delete:
+      tags:
+        - Author
+      summary: 'Delete author'
+      description: 'Delete author'
+      operationId: 0d18f67642b1f2fdb962934450d51f01
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'Author ID'
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'Delete author success'
+        '422':
+          description: 'Invalid data'
+        '404':
+          description: 'Not found'
+        '500':
+          description: 'Server error'
+    patch:
+      tags:
+        - Author
+      summary: 'Update author'
+      description: 'Update author'
+      operationId: 6063add2dc20658471719205f674c12e
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'Author ID'
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        $ref: '#/components/requestBodies/AuthorRequest'
+      responses:
+        '201':
+          description: 'Update author success'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties: { author_id: { type: number, example: 'ID для обновления автора' }, first_name: { type: text, example: 'Имя автора' }, last_name: { type: text, example: 'Фамилия автора' }, surname: { type: text, example: 'Отчество автора' } }
+                  type: object
+        '422':
+          description: 'Invalid data'
+        '404':
+          description: 'Not found'
+        '500':
+          description: 'Server error'
+  /api/books:
+    get:
+      tags:
+        - Book
+      summary: 'Get books'
+      description: 'Get books'
+      operationId: a9d13283dfab262e97af3c914d51b7a8
+      responses:
+        '200':
+          description: 'Get books'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BookCollection'
+        '404':
+          description: 'Not found'
+        '500':
+          description: 'Server error'
+    post:
+      tags:
+        - Book
+      summary: 'Store book'
+      description: 'Store book'
+      operationId: 47047e95a700b3271b697e57d0965191
+      requestBody:
+        $ref: '#/components/requestBodies/BookRequest'
+      responses:
+        '201':
+          description: 'Store book success'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties: { authors_ids: { type: number, example: 'authors_ids[] Передаем Ids авторов в массиве' }, title: { type: text, example: 'Название книги' }, genre_id: { type: number, example: 'ID жанра книги' }, description: { type: text, example: 'Описание книги' }, age: { type: number, example: 'Год выпуска книги' } }
+                  type: object
+        '422':
+          description: 'Invalid data'
+        '404':
+          description: 'Not found'
+        '500':
+          description: 'Server error'
+    patch:
+      tags:
+        - Book
+      summary: 'Update book'
+      description: 'Update book'
+      operationId: 77bfccb13dc124ec3278eb3c110541d0
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'Book ID'
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        $ref: '#/components/requestBodies/BookRequest'
+      responses:
+        '200':
+          description: 'Update book success'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties: { authors_ids: { type: number, example: 'authors_ids[] Передаем Ids авторов в массиве' }, title: { type: text, example: 'Название книги' }, genre_id: { type: number, example: 'ID жанра книги' }, description: { type: text, example: 'Описание книги' }, age: { type: number, example: 'Год выпуска книги' } }
+                  type: object
+        '422':
+          description: 'Invalid data'
+        '404':
+          description: 'Not found'
+        '500':
+          description: 'Server error'
+  '/api/books/{book_id}':
+    get:
+      tags:
+        - Book
+      summary: 'Get book'
+      description: 'Get book'
+      operationId: 2be0337fcf7873990c9bcbd3c15eeafc
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'Book ID'
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'Get book'
+        '422':
+          description: 'Invalid data'
+        '404':
+          description: 'Not found'
+        '500':
+          description: 'Server error'
+  '/api/books/author/{author_id}':
+    get:
+      tags:
+        - Book
+      summary: 'Get author books'
+      description: 'Get author books'
+      operationId: 0fedea518089d02d1a783e41c7f4c052
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'Author ID'
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'Get author books'
+        '422':
+          description: 'Invalid data'
+        '404':
+          description: 'Not found'
+        '500':
+          description: 'Server error'
+  /api/books/genres:
+    get:
+      tags:
+        - Book
+      summary: 'Get books for genres'
+      description: 'Get books for genres'
+      operationId: bd9f63691d7196ac8259468f7e48f417
+      responses:
+        '200':
+          description: 'Get books for genres success'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties: { genres: { type: text, example: "genres[] Передаем название жанров в массиве пример - ['Приключения', 'Исторический']" } }
+                  type: object
+        '422':
+          description: 'Invalid data'
+        '404':
+          description: 'Not found'
+        '500':
+          description: 'Server error'
+  /api/books/age:
+    get:
+      tags:
+        - Book
+      summary: 'Get books for age'
+      description: 'Get books for age'
+      operationId: b2a904e536133dc1be74cf3625dc4e0b
+      responses:
+        '200':
+          description: 'Get books for age success'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties: { from: { type: number, example: "Начало годов выпуска книги пример='2000'" }, to: { type: number, example: "Конец годов выпуска книги пример='2023'" } }
+                  type: object
+        '422':
+          description: 'Invalid data'
+        '404':
+          description: 'Not found'
+        '500':
+          description: 'Server error'
+components:
+  schemas:
+    AuthorCollection:
+      title: 'Book resource'
+      description: 'Book resource'
+      properties:
+        id:
+          description: 'ID книги'
+          format: integer
+        first_name:
+          description: 'Имя автора'
+          format: string
+        last_name:
+          description: 'Фамилия автора'
+          format: string
+        surname:
+          description: 'Отчество автора'
+          format: string
+        created_at:
+          description: 'Дата публикации книги'
+          format: string
+        updated_at:
+          description: 'Дата обновления книги'
+          format: string
+      type: object
+      xml:
+        name: 'Book resource'
+    BookCollection:
+      title: 'Book collection'
+      description: 'Book collection'
+      properties:
+        id:
+          description: 'ID книги'
+          format: integer
+        genre_id:
+          description: 'ID жанра книги'
+          format: integer
+        title:
+          description: 'Название книги'
+          format: string
+        description:
+          description: 'Описание книги'
+          format: string
+        age:
+          description: 'Год выпуска книги'
+          format: integer
+        created_at:
+          description: 'Дата публикации книги'
+          format: string
+        updated_at:
+          description: 'Дата обновления книги'
+          format: string
+        genre_title:
+          description: 'Название жанра книги'
+          format: string
+        authors:
+          description: 'Авторы книги'
+          format: array
+      type: object
+      xml:
+        name: 'Book collection'
+    BookResource:
+      title: 'Book resource'
+      description: 'Book resource'
+      properties:
+        id:
+          description: 'ID книги'
+          format: integer
+        genre_id:
+          description: 'ID жанра книги'
+          format: integer
+        title:
+          description: 'Название книги'
+          format: string
+        description:
+          description: 'Описание книги'
+          format: string
+        age:
+          description: 'Год выпуска книги'
+          format: integer
+        created_at:
+          description: 'Дата публикации книги'
+          format: string
+        updated_at:
+          description: 'Дата обновления книги'
+          format: string
+        genre_title:
+          description: 'Название жанра книги'
+          format: string
+        authors:
+          description: 'Авторы книги'
+          format: array
+      type: object
+      xml:
+        name: 'Book resource'
+  requestBodies:
+    StoryRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            properties:
+              genre_id:
+                type: integer
+              title:
+                type: string
+              authors_ids:
+                type: object
+              description:
+                type: string
+              age:
+                type: integer
+            type: object
